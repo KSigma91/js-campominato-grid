@@ -9,13 +9,17 @@
 // debugger;
 // chiedo all'utente a quale difficoltà vuole giocare
 const sceltaDifficoltà = prompt("Scegli la difficoltà");
+const selezioneGriglia = document.getElementById("grid");
+let difficoltàFacile;
+let squares = [];
 
 // se l'utente sceglie facile
 for (let i = 0; i < 100; i++){
-    let difficoltàFacile = parseInt(Math.floor(Math.random() * 100) + 1);
-    let selezioneGriglia = document.getElementById("grid");
-    let spawnCelle = document.createElement("square");
-    spawnCelle.append(difficoltàFacile);
+    difficoltàFacile = parseInt(Math.floor(Math.random() * 100) + 1);
+    let spawnCelle = document.createElement("div");
+    spawnCelle.className = "square";
+    selezioneGriglia.append(spawnCelle);
+    squares.push(spawnCelle);
 }
 
 // se l'utente sceglie medio
