@@ -6,8 +6,40 @@
 */
 
 
-
+// debugger;
 // chiedo all'utente a quale difficoltà vuole giocare
+const sceltaDifficoltà = prompt("Scegli la difficoltà");
+
+// se l'utente sceglie facile
+for (let i = 0; i < 100; i++){
+    let difficoltàFacile = parseInt(Math.floor(Math.random() * 100) + 1);
+    let selezioneGriglia = document.getElementById("grid");
+    let spawnCelle = document.createElement("square");
+    spawnCelle.append(difficoltàFacile);
+}
+
+// se l'utente sceglie medio
+for (let i = 0; i < 81; i++){
+    let difficoltàMedio = parseInt(Math.floor(Math.random() * 81) + 1);
+}
+
+
+// se l'utente sceglie difficile
+for (let i = 0; i < 49; i++){
+    let difficoltàDifficile = parseInt(Math.floor(Math.random() * 49) + 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // in base alla difficoltà scelta, genero una griglia quadrata che conterrà le celle e il giocatore potrà fare la sua partita
 
