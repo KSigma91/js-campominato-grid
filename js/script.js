@@ -6,47 +6,114 @@
 */
 
 
-// debugger;
-// chiedo all'utente a quale difficoltà vuole giocare
-const sceltaDifficoltà = prompt("Scegli la difficoltà");
-const selezioneGriglia = document.getElementById("grid");
-let difficoltàFacile;
-let squares = [];
+debugger;
+// seleziono gli elementi
+const selezioneDiff = document.getElementById("selection");
+const generaBtn = document.querySelector("button");
+const generazioneGriglia = document.getElementById("grid");
 
-// se l'utente sceglie facile
-for (let i = 0; i < 100; i++){
-    difficoltàFacile = parseInt(Math.floor(Math.random() * 100) + 1);
-    let spawnCelle = document.createElement("div");
-    spawnCelle.className = "square";
-    selezioneGriglia.append(spawnCelle);
-    squares.push(spawnCelle);
+// l'utente avrà a disposizione tre difficoltà: facile, medio, difficile. Una volta scelto verranno generate le celle
+const generaCelle = (classeDiv) => {
+    
+    // creo l'elemento "div" per poi inserire la classe "square"
+    const box = document.createElement("div");
+    box.className = classeDiv;
+    return box;
+
 }
 
-// se l'utente sceglie medio
-for (let i = 0; i < 81; i++){
-    let difficoltàMedio = parseInt(Math.floor(Math.random() * 81) + 1);
+// in base alla difficoltà scelta, genero una griglia che conterrà le celle e il giocatore potrà fare la sua partita
+generaBtn.addEventListener("click",
+
+    () => {
+        let numeroCelle, classeCelle;
+
+        // svuota griglia
+        generazioneGriglia.innerHTML = "";
+
+        // riferimento al valore della selezione livello
+        const sceltaLivello = selezioneDiff.value;
+        console.log(sceltaLivello);
+
+        switch (sceltaLivello) {
+
+            case "facile":
+            default:
+                numeroCelle = 100;
+                classeCelle = "square_facile";
+                break;
+
+            case "medio":
+                numeroCelle = 81;
+                classeCelle = "square_medio";
+                break;
+
+            case "difficile":
+                numeroCelle = 49;
+                classeCelle = "square_difficile";
+                break;
+        }
+
+        // generiamo dei numeri random con un range minimo e massimo
+        const generaNumeri = numeriRandom (numeroCelle, 1, numeroCelle);
+        console.log(generaNumeri);
+
+        for (let i = 0; i < generaNumeri.length; i++){
+
+            // i numeri generati saranno inseriti nelle celle 
+            const elementiSquare = generaCelle(classeCelle);
+            let valoriCella = generaNumeri[i];
+            elementiSquare.generaCelle(valoriCella);
+            elementiSquare.addEventListener("click",
+
+                function(){
+                    this.append(valoriCella)
+                    if (PariDispari(valoriCella) === "pari"){
+                        document.getElementById("num_pari");
+                    } else {
+                        document.getElementById("num_dispari");
+                    }
+                }
+
+            )
+            generazioneGriglia.append(elementiCreati);
+
+        }
+    }
+
+);
+
+function numeriRandom (numeriLista, min, max){
+
+    const numeriInt = [];
+    while (numeriInt.lenght < numeriLista){
+        let numeriIntRandom = numeriRandomMinMax(min, max);
+        if (!numeriInt.includes(numeriIntRandom)){
+            numeriInt.push(numeriIntRandom);
+        }
+    }
+    return numeriInt;
+
 }
 
 
-// se l'utente sceglie difficile
-for (let i = 0; i < 49; i++){
-    let difficoltàDifficile = parseInt(Math.floor(Math.random() * 49) + 1);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-// in base alla difficoltà scelta, genero una griglia quadrata che conterrà le celle e il giocatore potrà fare la sua partita
 
 // ogni cella conterrà un numero con un range direttamente proporzionale alla difficoltà scelta
+function genNumeriRandom (rangeMin, rangeMax){
 
-// quando l'utente darà i suoi click, le celle si coloreranno di azzurro
+    let genRandom = Math.floor(Math.random() * (rangeMax - rangeMin + 1)) + rangeMin;
+    return genRandom;
+
+}
+
+// funzione pari o dispari
+function PariDispari (numeroCheck){
+
+    let risultato;
+    if (numeroCheck % 2 === 0){
+        risultato = "pari";
+    } else {
+        risultato = "dispari";
+    }
+    return risultato;
+}
